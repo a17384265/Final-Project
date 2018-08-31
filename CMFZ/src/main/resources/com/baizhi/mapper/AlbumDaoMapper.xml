@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <resultMap id="rm1" type="com.baizhi.entity.Album">
+        <id property="id" column="aid"/>
+        <result property="title" column="atitle"/>
+        <result property="count" column="acount"/>
+        <result property="corverImg" column="acorverImg"/>
+        <result property="score" column="ascore"/>
+        <result property="author" column="aauthor"/>
+        <result property="broadCast" column="abroadCast"/>
+        <result property="brife" column="abrife"/>
+        <result property="publicDate" column="apublicDate"/>
+        <result property="createDate" column="acreateDate"/>
+        <result property="status" column="astatus"/>
+        <collection property="children" ofType="com.baizhi.entity.Chapter">
+            <id property="id" column="cid"/>
+            <result property="title" column="ctitle"/>
+            <result property="duration" column="cduration"/>
+            <result property="audioPath" column="caudioPath"/>
+        </collection>
+    </resultMap>
+    <select id="queryAll" resultMap="rm1">
+
+       SELECT
+	a.id aid,
+	a.title atitle,
+	a.count acount,
+	a.corverImg acorverImg,
+	a.score ascore,
+	a.author aauthor,
+	a.broadCast abroadCast,
+	a.brife abrife,
+	a.publicDate apublicDate,
+	a.createDate acreateDate,
+	a. status astatus,
+	c.id cid,
+	c.title ctitle,
+	c.duration cduration,
+	c.audioPath caudioPath
+FROM
+	album a
+LEFT JOIN chapter c ON c.album_id = a.id
+   </select>
+
+
+    <insert id="add" parameterType="Album">
+        INSERT INTO album VALUES (0,#{title},#{count},#{corverImg},#{score},#{author},#{broadCast},#{brife},#{publicDate},#{createDate},#{status})
+    </insert>
+</mapper>
+
+
+
+
+
+
+
